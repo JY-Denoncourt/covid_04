@@ -13,6 +13,7 @@ namespace wpf_demo_phonebook
         {
             ContactModel cm = null;
 
+
             DataTable dt = new DataTable();
 
             dt = dao.SearchByName(_name);
