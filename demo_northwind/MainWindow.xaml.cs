@@ -10,15 +10,21 @@ namespace demo_northwind
     /// </summary>
     public partial class MainWindow : Window
     {
+
+
+
         public MainWindow()
         {
             InitializeComponent();
         }
 
+
+
+
         private void TestConnection_Click(object sender, RoutedEventArgs e)
         {
             var connString = ConfigurationManager.ConnectionStrings["connString"].ConnectionString;
-            
+            //string connString = @"Data Source=LAPTOP-48DG250R\SQLEXPRESS;Initial Catalog=Northwind;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
             using (SqlConnection conn = new SqlConnection(connString))
             {

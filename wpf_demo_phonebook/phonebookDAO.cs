@@ -8,18 +8,20 @@ namespace wpf_demo_phonebook
 {
     class PhonebookDAO
     {
+        //-----------------------------------------------------------------------Variables
+
         private DbConnection conn;
+
+        //-----------------------------------------------------------------------Constructeurs
 
         public PhonebookDAO()
         {
             conn = new DbConnection();
         }
 
-        /// <summary>
-        /// Méthode permettant de rechercher un contact par nom
-        /// </summary>
-        /// <param name="_name">Nom de famille ou prénom</param>
-        /// <returns>Une DataTable</returns>
+        //-----------------------------------------------------------------------Methodes
+
+     
         public DataTable SearchByName(string _name)
         {
             string _query =
@@ -37,11 +39,7 @@ namespace wpf_demo_phonebook
             return conn.ExecuteSelectQuery(_query, parameters);
         }
 
-        /// <summary>
-        /// Méthode permettant de rechercher un contact par id
-        /// </summary>
-        /// <param name="_name">Nom de famille ou prénom</param>
-        /// <returns>Une DataTable</returns>
+        
         public DataTable SearchByID(int _id)
         {
             string _query =

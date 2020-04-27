@@ -11,8 +11,15 @@ namespace wpf_demo_phonebook
 {
     public class DbConnection
     {
+        //----------------------------------------------------------------------------------Vatriables
+
+
         public SqlDataAdapter DataAdapter { get; set; } = new SqlDataAdapter();
         public static SqlConnection Connection { get; set; }
+
+
+        //---------------------------------------------------------------------------------Constructeurs
+
 
         public DbConnection()
         {
@@ -20,6 +27,10 @@ namespace wpf_demo_phonebook
                 Connection = new SqlConnection(ConfigurationManager.ConnectionStrings["connString"].ConnectionString);
         }
 
+
+        //---------------------------------------------------------------------------------Fonctions
+
+        #region -->Fonctions
         private SqlConnection open()
         {
             if (Connection.State == ConnectionState.Closed || 
@@ -30,6 +41,7 @@ namespace wpf_demo_phonebook
 
             return Connection;
         }
+
 
         private void writeError(string _message)
         {
@@ -42,6 +54,7 @@ namespace wpf_demo_phonebook
             Console.WriteLine(msg);
             Debug.WriteLine (msg);
         }
+
 
         public DataTable ExecuteSelectQuery(string _query, SqlParameter[] parameters)
         {
@@ -71,6 +84,7 @@ namespace wpf_demo_phonebook
             return dataTable;
         }
 
+
         public int ExecutInsertQuery(string _query, SqlParameter[] parameters)
         {
             SqlCommand command = new SqlCommand();
@@ -96,6 +110,7 @@ namespace wpf_demo_phonebook
             return result;
         }
 
+
         public int ExecutUpdateQuery(string _query, SqlParameter[] parameters)
         {
             SqlCommand command = new SqlCommand();
@@ -120,5 +135,8 @@ namespace wpf_demo_phonebook
 
             return result;
         }
+
+        #endregion
+
     }
 }
