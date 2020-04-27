@@ -4,45 +4,78 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:wpf_demo_phonebook"
+        DataContext="{Binding RelativeSource={RelativeSource self}}"
         mc:Ignorable="d"
         Title="MainWindow" MinHeight="300" Width="800">
+    
+    
+    
     <DockPanel>
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
+        
+        
+        
+        
+        
+        
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
 
-        <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal">
-            <TextBlock Text="Recherche : "/>
-            <TextBox x:Name="txtCriteria" HorizontalAlignment="Right" Width="150"/>
-        </StackPanel>
-        <TextBlock Grid.Row="1" Grid.Column="0" Text="Prénom : "/>
-        <TextBlock Grid.Row="2" Grid.Column="0" Text="Nom de famille : "/>
-        <TextBlock Grid.Row="3" Grid.Column="0" Text="Email : "/>
-        <TextBlock Grid.Row="4" Grid.Column="0" Text="Téléphone : "/>
-        <TextBlock Grid.Row="5" Grid.Column="0" Text="Celluaire : "/>
-        <TextBlock Grid.Row="7" Grid.Column="0" Text="Identifiant : "/>
+            <ListView Grid.Column="0" x:Name="lvEmployee" 
+                      SelectedItem="{Binding SelectedContact}"
+                      ItemsSource="{Binding Contacts}">
 
-        <Button  Grid.Row="0" Grid.Column="1" Content="Recherche" 
-                    Command="{Binding SearchContactCommand}" 
-                    CommandParameter="{Binding ElementName=txtCriteria,Path=Text}" />
-        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding SelectedContact.FirstName}"/>
-        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding SelectedContact.LastName}"/>
-        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding SelectedContact.Email}"/>
-        <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding SelectedContact.Phone}"/>
-        <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding SelectedContact.Mobile}"/>
-        <TextBox Grid.Row="7" Grid.Column="1" Text="{Binding SelectedContact.ContactID}"/>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Info}"/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+
+            </ListView>
+
+            <Grid Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal">
+                    <TextBlock Text="Recherche : "/>
+                    <TextBox x:Name="txtCriteria" HorizontalAlignment="Right" Width="150"/>
+                </StackPanel>
+                
+                <TextBlock Grid.Row="1" Grid.Column="0" Text="Prénom : "/>
+                <TextBlock Grid.Row="2" Grid.Column="0" Text="Nom de famille : "/>
+                <TextBlock Grid.Row="3" Grid.Column="0" Text="Email : "/>
+                <TextBlock Grid.Row="4" Grid.Column="0" Text="Téléphone : "/>
+                <TextBlock Grid.Row="5" Grid.Column="0" Text="Celluaire : "/>
+                <TextBlock Grid.Row="7" Grid.Column="0" Text="Identifiant : "/>
+
+                <Button  Grid.Row="0" Grid.Column="1" Content="Recherche" 
+                            Command="{Binding SearchContactCommand}" 
+                            CommandParameter="{Binding ElementName=txtCriteria,Path=Text}" />
+                
+                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding SelectedContact.FirstName}"/>
+                <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding SelectedContact.LastName}"/>
+                <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding SelectedContact.Email}"/>
+                <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding SelectedContact.Phone}"/>
+                <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding SelectedContact.Mobile}"/>
+                <TextBox Grid.Row="7" Grid.Column="1" Text="{Binding SelectedContact.ContactID}"/>
+            </Grid>
+
         </Grid>
+
     </DockPanel>
 </Window>

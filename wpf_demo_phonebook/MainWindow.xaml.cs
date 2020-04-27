@@ -1,29 +1,70 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using App.Models;
+using System;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
+using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace wpf_demo_phonebook
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, INotifyPropertyChanged
     {
+        //-------------------------------------------------------------Variables
+
+        DataTable dataTable;
+
+        private ContactModel selectedContact;
+
+        private ObservableCollection<ContactModel> contacts = new ObservableCollection<ContactModel>();
+
+        //-------------------------------------------------------------Definitions Variables
+
+        public ContactModel SelectedContact
+        {
+            get { return selectedContact; }
+            set
+            {
+                selectedContact = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public ObservableCollection<ContactModel> Contacts
+        {
+            get => contacts;
+            set
+            {
+                contacts = value;
+                OnPropertyChanged();
+            }
+        }
+
+        //-------------------------------------------------------------Constructeurs
 
         public MainWindow()
         {
             InitializeComponent();
         }
+
+        //-------------------------------------------------------------Méthodes
+
+        #region -->Methodes 
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected virtual void OnPropertyChanged([CallerMemberName]string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        //*************************************
+
+        
+
+
+
+        #endregion
     }
 }

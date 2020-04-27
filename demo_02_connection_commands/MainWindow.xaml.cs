@@ -84,6 +84,7 @@ namespace demo_02_connection_commands
 
             Employees.Clear();
 
+            //Prend tout dans sqlDB et met dans ObservableCollection Employees
             foreach (DataRow row in dataTable.Rows)
             {
 
@@ -98,6 +99,8 @@ namespace demo_02_connection_commands
             }
             
         }
+
+
 
         private void UpdateEmployee_Click(object sender, RoutedEventArgs e)
         {
@@ -130,6 +133,8 @@ namespace demo_02_connection_commands
             }
         }
 
+
+
         private static int? RunNonQueryCommand(string queryString, string connectionString)
         {
             int? result = null;
@@ -155,6 +160,9 @@ namespace demo_02_connection_commands
 
             return result;
         }
+
+
+
 
         public event PropertyChangedEventHandler PropertyChanged;
 

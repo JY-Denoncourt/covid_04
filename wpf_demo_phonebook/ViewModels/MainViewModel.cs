@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Windows;
 using wpf_demo_phonebook.ViewModels.Commands;
 
@@ -6,7 +7,29 @@ namespace wpf_demo_phonebook.ViewModels
 {
     class MainViewModel : BaseViewModel
     {
+        //-----------------------------------------------------------------------Variables
+
+        #region -->Variables
         private ContactModel selectedContact;
+
+        private ObservableCollection<ContactModel> contacts = new ObservableCollection<ContactModel>();
+
+        private string criteria;
+
+        #endregion
+
+        //-----------------------------------------------------------------------Définition
+
+        #region -->Definitions
+        public ObservableCollection<ContactModel> Contacts
+        {
+            get => contacts;
+            set
+            {
+                contacts = value;
+                OnPropertyChanged();
+            }
+        }
 
         public ContactModel SelectedContact
         {
@@ -17,8 +40,6 @@ namespace wpf_demo_phonebook.ViewModels
             }
         }
 
-        private string criteria;
-
         public string Criteria
         {
             get { return criteria; }
@@ -28,26 +49,35 @@ namespace wpf_demo_phonebook.ViewModels
             }
         }
 
+
+        //***************ICommand-RelayCommand
         public RelayCommand SearchContactCommand { get; set; }
+        #endregion
+
+        //-----------------------------------------------------------------------Constructeurs
+
 
         public MainViewModel()
         {
             SearchContactCommand = new RelayCommand(SearchContact);
             SelectedContact = PhoneBookBusiness.GetContactByID(1);
+            Contacts = PhoneBookBusiness.GetAllContacts();
+            
         }
 
+        //-----------------------------------------------------------------------Methodes
+
+        
         private void SearchContact(object parameter)
         {
             string input = parameter as string;
             int output;
             string searchMethod;
             if (!Int32.TryParse(input, out output))
-            {
                 searchMethod = "name";
-            } else
-            {
+            else
                 searchMethod = "id";
-            }
+
 
             switch (searchMethod)
             {
@@ -62,5 +92,10 @@ namespace wpf_demo_phonebook.ViewModels
                     break;
             }
         }
+
+
+       
+
+
     }
 }

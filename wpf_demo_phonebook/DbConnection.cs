@@ -66,7 +66,14 @@ namespace wpf_demo_phonebook
             {
                 command.Connection = open();
                 command.CommandText = _query;
-                command.Parameters.AddRange(parameters);
+
+                //******************************************
+                //Modif test JYD le if en surplus
+                if (parameters != null)
+                    command.Parameters.AddRange(parameters);
+                //*******************************************
+
+
                 command.ExecuteNonQuery();
                 DataAdapter.SelectCommand = command;
                 DataAdapter.Fill(ds);

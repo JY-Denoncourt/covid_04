@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 
 namespace wpf_demo_phonebook
@@ -48,6 +50,25 @@ namespace wpf_demo_phonebook
             return cm;
         }
 
+        public static ObservableCollection<ContactModel> GetAllContacts()
+        {
+            ContactModel cm = null;
+            ObservableCollection<ContactModel> OC_Contacts = new ObservableCollection<ContactModel>();
+            DataTable dt = new DataTable();
+
+            dt = dao.GetAll();
+
+            if (dt != null)
+            {
+                foreach (DataRow row in dt.Rows)
+                {
+                    cm = RowToContactModel(row);
+                    OC_Contacts.Add(cm);
+                }
+            }
+            return OC_Contacts;
+        }
+
         private static ContactModel RowToContactModel(DataRow row)
         {
             ContactModel cm = new ContactModel();
@@ -61,5 +82,12 @@ namespace wpf_demo_phonebook
 
             return cm;
         }
+
+
+        
+
+
+
+
     }
 }
