@@ -11,11 +11,46 @@
     
     
     <DockPanel>
-        
-        
-        
-        
-        
+
+        <StackPanel DockPanel.Dock="Top">
+            <Menu>
+                <MenuItem Header="_Fichier">
+                    <MenuItem Header="_Ouvrir..."/>
+                    <MenuItem Header="_Sauvegarder"/>
+                    <MenuItem Header="_Fermer"/>
+                    <Separator/>
+                    <MenuItem Header="_Nouveau client"/>
+                    <Separator/>
+                    <MenuItem Header="_Quitter" Click="Exit_Click"/>
+                </MenuItem>
+
+                <MenuItem Header="_Édition">
+                    <MenuItem Header="Couper..."/>
+                    <MenuItem Header="Copier"/>
+                    <MenuItem Header="Coller"/>
+                </MenuItem>
+
+                <MenuItem Header="Enregistrement">
+                    <MenuItem Header="Nouveau Client" Command=""/>
+                </MenuItem>
+            </Menu>
+        </StackPanel>
+
+
+        <ToolBar DockPanel.Dock="Top">
+            <Button Width="60">
+                +Contact
+            </Button>
+            <Separator/>
+            <StackPanel Margin="5,0,0,0" Orientation="Horizontal">
+                <TextBlock Text="Recherche : "/>
+                <TextBox x:Name="txtCriteria" HorizontalAlignment="Right" Width="150"/>
+                <Button  Margin="10,0,0,0" Content="Recherche" 
+                         Command="{Binding SearchContactCommand}" 
+                         CommandParameter="{Binding ElementName=txtCriteria,Path=Text}"/>
+            </StackPanel>
+        </ToolBar>
+
         
         <Grid>
             <Grid.ColumnDefinitions>
@@ -23,7 +58,7 @@
                 <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
 
-            <ListView Grid.Column="0" x:Name="lvEmployee" 
+            <ListView Grid.Column="0" x:Name="lvContact" 
                       SelectedItem="{Binding SelectedContact}"
                       ItemsSource="{Binding Contacts}">
 
@@ -37,42 +72,43 @@
 
             <Grid Grid.Column="1">
                 <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
 
-                <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal">
-                    <TextBlock Text="Recherche : "/>
-                    <TextBox x:Name="txtCriteria" HorizontalAlignment="Right" Width="150"/>
+               
+                
+                <TextBlock Grid.Row="0" Grid.Column="0" Text="Prénom : "/>
+                <TextBlock Grid.Row="1" Grid.Column="0" Text="Nom de famille : "/>
+                <TextBlock Grid.Row="2" Grid.Column="0" Text="Email : "/>
+                <TextBlock Grid.Row="3" Grid.Column="0" Text="Téléphone : "/>
+                <TextBlock Grid.Row="4" Grid.Column="0" Text="Celluaire : "/>
+                <TextBlock Grid.Row="5" Grid.Column="0" Text="Identifiant : "/>
+
+                
+                
+                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding SelectedContact.FirstName}"/>
+                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding SelectedContact.LastName}"/>
+                <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding SelectedContact.Email}"/>
+                <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding SelectedContact.Phone}"/>
+                <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding SelectedContact.Mobile}"/>
+                <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding SelectedContact.ContactID}"/>
+
+                <StackPanel Grid.Row="6" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button Margin="5" Width="70" Content="Enregistrer"/>
+                    <Button Margin="5" Width="70" Content="Supprimer"/>
                 </StackPanel>
                 
-                <TextBlock Grid.Row="1" Grid.Column="0" Text="Prénom : "/>
-                <TextBlock Grid.Row="2" Grid.Column="0" Text="Nom de famille : "/>
-                <TextBlock Grid.Row="3" Grid.Column="0" Text="Email : "/>
-                <TextBlock Grid.Row="4" Grid.Column="0" Text="Téléphone : "/>
-                <TextBlock Grid.Row="5" Grid.Column="0" Text="Celluaire : "/>
-                <TextBlock Grid.Row="7" Grid.Column="0" Text="Identifiant : "/>
-
-                <Button  Grid.Row="0" Grid.Column="1" Content="Recherche" 
-                            Command="{Binding SearchContactCommand}" 
-                            CommandParameter="{Binding ElementName=txtCriteria,Path=Text}" />
-                
-                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding SelectedContact.FirstName}"/>
-                <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding SelectedContact.LastName}"/>
-                <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding SelectedContact.Email}"/>
-                <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding SelectedContact.Phone}"/>
-                <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding SelectedContact.Mobile}"/>
-                <TextBox Grid.Row="7" Grid.Column="1" Text="{Binding SelectedContact.ContactID}"/>
             </Grid>
 
         </Grid>

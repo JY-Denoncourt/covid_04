@@ -61,7 +61,10 @@ namespace wpf_demo_phonebook
 
         //*************************************
 
-        
+        private void Exit_Click(object sender, RoutedEventArgs e)
+        {
+            App.Current.Shutdown();
+        }
 
 
 

@@ -91,6 +91,8 @@ namespace wpf_demo_phonebook.ViewModels
                     MessageBox.Show("Unkonwn search method");
                     break;
             }
+
+            
         }
 
 
