@@ -12,10 +12,15 @@ namespace wpf_demo_phonebook.ViewModels
         //-----------------------------------------------------------------------Variables
 
         #region -->Variables
+
+        //*************************MVVM
+        private BaseViewModel _vm;
+        
+    
+
+        //*************************DataBase
         private ContactModel selectedContact;
-
         private ObservableCollection<ContactModel> contacts = new ObservableCollection<ContactModel>();
-
         private string criteria;
 
         #endregion
@@ -23,6 +28,20 @@ namespace wpf_demo_phonebook.ViewModels
         //-----------------------------------------------------------------------Définition
 
         #region -->Definitions
+
+        //***********************MVVM
+        public BaseViewModel VM
+        {
+            get { return _vm; }
+            set
+            {
+                _vm = value;
+                OnPropertyChanged();
+            }
+        }
+
+
+        //**********************DataBase
         public ObservableCollection<ContactModel> Contacts
         {
             get => contacts;
@@ -32,16 +51,17 @@ namespace wpf_demo_phonebook.ViewModels
                 OnPropertyChanged();
             }
         }
-
+        
         public ContactModel SelectedContact
         {
             get => selectedContact;
-            set { 
+            set
+            {
                 selectedContact = value;
                 OnPropertyChanged();
             }
         }
-
+        
         public string Criteria
         {
             get { return criteria; }
@@ -52,7 +72,10 @@ namespace wpf_demo_phonebook.ViewModels
         }
 
 
-        //***************ICommand-RelayCommand
+        //*********************ICommand-RelayCommand
+        public RelayCommand DisplayContactCommand { get; private set; }
+
+
         public RelayCommand SearchContactCommand { get; set; }
         public RelayCommand GetAllCommand { get; set; }
         public RelayCommand UpdateContactCommand { get; set; }
@@ -62,9 +85,13 @@ namespace wpf_demo_phonebook.ViewModels
 
         //-----------------------------------------------------------------------Constructeurs
 
-
         public MainViewModel()
         {
+            //*********************MVVM
+            VM = this;
+
+
+            //*********************RelayCommand
             SearchContactCommand = new RelayCommand(SearchContact);   //Fait search by ID || name et met dans Contacts+Listview et SelectedContact+FicheGauche
             GetAllCommand = new RelayCommand(ShowAllContact);         //Fait get de tous les contact et met dans Contacts+Listview et SelectedContact+FicheGauche
             UpdateContactCommand = new RelayCommand(UpdateContact);   //Fait un enregistrement du SelectedContact de FicheGauche (update si flag=false) (insert si flag=true)
@@ -190,23 +217,19 @@ namespace wpf_demo_phonebook.ViewModels
             }
         }
 
-        #endregion
 
-
-
-
-
-        //En essai******************************
-        //() -->Methode qui ajoute un contact a la bd
+        //(ok) -->Methode qui ajoute un contact a la bd
         private void AddContact(Object parameter)
         {
             //Creation d'un new ContactModel
             ContactModel newContact = new ContactModel();
             newContact.Flag = true;
-            
+
 
             SelectedContact = newContact;
         }
+        
+        #endregion
 
     }
 }

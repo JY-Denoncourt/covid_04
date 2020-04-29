@@ -8,6 +8,7 @@ using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using wpf_demo_phonebook.ViewModels;
 
 namespace wpf_demo_phonebook
 {
@@ -15,13 +16,12 @@ namespace wpf_demo_phonebook
     {
         //-------------------------------------------------------------Variables
 
-        DataTable dataTable;
-
+        #region -->Variables
         private ContactModel selectedContact;
 
         private ObservableCollection<ContactModel> contacts = new ObservableCollection<ContactModel>();
 
-        //-------------------------------------------------------------Definitions Variables
+        //--------------Definitions Variables
 
         public ContactModel SelectedContact
         {
@@ -43,11 +43,15 @@ namespace wpf_demo_phonebook
             }
         }
 
+        #endregion
+
         //-------------------------------------------------------------Constructeurs
 
         public MainWindow()
         {
             InitializeComponent();
+
+            DataContext = new MainViewModel();
         }
 
         //-------------------------------------------------------------Méthodes
