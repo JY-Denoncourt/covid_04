@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:wpf_demo_phonebook"
-        DataContext="{Binding RelativeSource={RelativeSource self}}"
+        
         mc:Ignorable="d"
         Title="MainWindow" MinHeight="300" Width="800">
     
@@ -41,7 +41,9 @@
             <Button Width="60">
                 +Contact
             </Button>
+            
             <Separator/>
+            
             <StackPanel Margin="5,0,0,0" Orientation="Horizontal">
                 <TextBlock Text="Recherche : "/>
                 <TextBox x:Name="txtCriteria" HorizontalAlignment="Right" Width="150"/>
@@ -49,6 +51,12 @@
                          Command="{Binding SearchContactCommand}" 
                          CommandParameter="{Binding ElementName=txtCriteria,Path=Text}"/>
             </StackPanel>
+            
+            <Separator/>
+
+            <Button Margin="10,0,0,0" Command="{Binding GetAllCommand}">
+                Afficher tous
+            </Button>
         </ToolBar>
 
         
@@ -105,8 +113,8 @@
                 <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding SelectedContact.ContactID}"/>
 
                 <StackPanel Grid.Row="6" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
-                    <Button Margin="5" Width="70" Content="Enregistrer"/>
-                    <Button Margin="5" Width="70" Content="Supprimer"/>
+                    <Button Margin="5" Width="70" Content="Enregistrer" Command="{Binding UpdateContactCommand}"/>
+                    <Button Margin="5" Width="70" Content="Supprimer" Command="{Binding DeleteContactCommand}"/>
                 </StackPanel>
                 
             </Grid>

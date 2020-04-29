@@ -21,7 +21,7 @@ namespace wpf_demo_phonebook
 
         //-----------------------------------------------------------------------Methodes
 
-     
+        #region -->Methodes
         public DataTable SearchByName(string _name)
         {
             string _query =
@@ -55,16 +55,58 @@ namespace wpf_demo_phonebook
         }
 
 
-        //(ok) -->Requet pour avoir tout contact
+        //(ok) -->Requete pour avoir tout contact
         public DataTable GetAll()
         {
             string _query =
                 $"SELECT * " +
                 $"FROM [Contacts] ";
 
-
             return conn.ExecuteSelectQuery(_query, null);
         }
+
+
+        //(ok) -->Requete pour update de table Contacts
+        public int Update(ContactModel cm, int _id)
+        {
+            string _query =
+                $"UPDATE Contacts " +
+                $"SET FirstName = '{cm.FirstName}­', " +
+                    $"LastName = '{cm.LastName}', " +
+                    $"Email = '{cm.Email}', " +
+                    $"Phone = '{cm.Phone}', " +
+                    $"Mobile = '{cm.Mobile}' " +
+                $"WHERE ContactId = @_id";
+
+            SqlParameter[] parameters = new SqlParameter[1];
+            parameters[0] = new SqlParameter("@_id", SqlDbType.Int);
+            parameters[0].Value = _id;
+
+            return conn.ExecuteUpdateQuery(_query, parameters);
+        }
+
+
+        //(ok) -->Requete qui Delete un contact de table Contacts
+        public int Delete(ContactModel cm, int _id)
+        {
+            string _query =
+                $"Delete " +
+                $"FROM [Contacts] " +
+                $"WHERE ContactId = @_id";
+
+            SqlParameter[] parameters = new SqlParameter[1];
+            parameters[0] = new SqlParameter("@_id", SqlDbType.Int);
+            parameters[0].Value = _id;
+
+            return conn.ExecuteDeleteQuery(_query, parameters);
+        }
+        
+        #endregion
+
+
+
+
+
 
     }
 }

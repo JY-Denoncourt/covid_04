@@ -9,12 +9,20 @@ namespace wpf_demo_phonebook
 {
     static class PhoneBookBusiness
     {
+        //---------------------------------------------------------------Variables
+
         private static PhonebookDAO dao = new PhonebookDAO();
 
-        public static ContactModel GetContactByName(string _name)
+
+
+        //---------------------------------------------------------------Methodes
+        
+        #region -->Methodes
+        //() -->Recherche qui retourne 0 a N contact
+        public static ObservableCollection<ContactModel> GetContactByName(string _name)
         {
             ContactModel cm = null;
-
+            ObservableCollection<ContactModel> OC_Contacts = new ObservableCollection<ContactModel>();
 
             DataTable dt = new DataTable();
 
@@ -25,11 +33,13 @@ namespace wpf_demo_phonebook
                 foreach (DataRow row in dt.Rows)
                 {
                     cm = RowToContactModel(row);
+                    OC_Contacts.Add(cm);
                 }
             }
 
-            return cm;
+            return OC_Contacts;
         }
+
 
         public static ContactModel GetContactByID(int _id)
         {
@@ -50,6 +60,8 @@ namespace wpf_demo_phonebook
             return cm;
         }
 
+
+        //(ok) -->Prendre tout les contacts de la BD
         public static ObservableCollection<ContactModel> GetAllContacts()
         {
             ContactModel cm = null;
@@ -69,6 +81,20 @@ namespace wpf_demo_phonebook
             return OC_Contacts;
         }
 
+
+        //(ok) -->Faire un update de toute info(sauf ContactId) sur 1 contact de la BD
+        public static int UpdateContact(ContactModel _cm)
+        {
+            int nbModif = 0;
+            DataTable dt = new DataTable();
+            int _id = _cm.ContactID;
+
+            nbModif = dao.Update(_cm, _id);
+
+            return nbModif;
+        }
+
+
         private static ContactModel RowToContactModel(DataRow row)
         {
             ContactModel cm = new ContactModel();
@@ -83,11 +109,26 @@ namespace wpf_demo_phonebook
             return cm;
         }
 
-
-        
-
+        #endregion
 
 
 
+
+
+
+
+
+        //***********en essai ****************
+        //() -->Methode qui fait un delete d'un contact
+        public static int DeleteContact(ContactModel _cm)
+        {
+            int nbDel = 0; 
+            DataTable dt = new DataTable();
+            int _id = _cm.ContactID;
+
+           nbDel = dao.Delete(_cm, _id);
+
+            return nbDel;
+        }
     }
 }

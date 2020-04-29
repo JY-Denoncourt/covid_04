@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Windows;
 using wpf_demo_phonebook.ViewModels.Commands;
 
@@ -52,6 +53,9 @@ namespace wpf_demo_phonebook.ViewModels
 
         //***************ICommand-RelayCommand
         public RelayCommand SearchContactCommand { get; set; }
+        public RelayCommand GetAllCommand { get; set; }
+        public RelayCommand UpdateContactCommand { get; set; }
+        public RelayCommand DeleteContactCommand { get; set; }
         #endregion
 
         //-----------------------------------------------------------------------Constructeurs
@@ -60,14 +64,19 @@ namespace wpf_demo_phonebook.ViewModels
         public MainViewModel()
         {
             SearchContactCommand = new RelayCommand(SearchContact);
+            GetAllCommand = new RelayCommand(ShowAllContact);
+            UpdateContactCommand = new RelayCommand(UpdateContact);
+            DeleteContactCommand = new RelayCommand(DeleteContact);
+
             SelectedContact = PhoneBookBusiness.GetContactByID(1);
-            Contacts = PhoneBookBusiness.GetAllContacts();
-            
+            ShowAllContact(null);
         }
 
         //-----------------------------------------------------------------------Methodes
 
-        
+        #region -->Methodes
+
+        //(ok) -->Methode qui fait un seach de contact par id ou name
         private void SearchContact(object parameter)
         {
             string input = parameter as string;
@@ -82,10 +91,18 @@ namespace wpf_demo_phonebook.ViewModels
             switch (searchMethod)
             {
                 case "id":
+                    Contacts.Clear();
                     SelectedContact = PhoneBookBusiness.GetContactByID(output);
+              
+                    if (SelectedContact != null)
+                        Contacts.Add(SelectedContact);
+                    
+                        
                     break;
                 case "name":
-                    SelectedContact = PhoneBookBusiness.GetContactByName(input);
+                    Contacts = PhoneBookBusiness.GetContactByName(input);
+                    if (Contacts.Count > 0)
+                        SelectedContact = Contacts[0];
                     break;
                 default:
                     MessageBox.Show("Unkonwn search method");
@@ -96,7 +113,42 @@ namespace wpf_demo_phonebook.ViewModels
         }
 
 
-       
+        //(ok) -->Methode qui fait un ramasse tout les contact de la BD
+        private void ShowAllContact(Object parameter)
+        {
+            Contacts = PhoneBookBusiness.GetAllContacts();
+        }
+
+
+        //(ok) -->Methode qui fait un Update d'un contact dans la BD
+        private void UpdateContact(object parameter)
+       {
+            int nbModif = PhoneBookBusiness.UpdateContact(SelectedContact);
+            Debug.WriteLine("Nb de contact modifier : " + nbModif);
+       }
+
+
+        //(ok) -->Methode qui fait un Delete d'un contact dans la BD
+        private void DeleteContact(Object Parameter)
+        {
+            MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("Are you sure?", "Delete Confirmation", System.Windows.MessageBoxButton.YesNo);
+            if (messageBoxResult == MessageBoxResult.Yes)
+            {
+                Debug.WriteLine("Efface");
+                int nbDel = PhoneBookBusiness.DeleteContact(SelectedContact);
+                Debug.WriteLine("Nb de contact modifier : " + nbDel);
+                if(nbDel > 0)
+                {
+                    Contacts.Remove(SelectedContact);
+                }
+            }
+            else
+            {
+                Debug.WriteLine("Efface pas");
+            }
+        }
+
+        #endregion
 
 
     }
