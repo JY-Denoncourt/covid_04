@@ -18,7 +18,7 @@ namespace wpf_demo_phonebook
         //---------------------------------------------------------------Methodes
         
         #region -->Methodes
-        //() -->Recherche qui retourne 0 a N contact
+        //(ok) -->Recherche qui retourne 0 a N contact
         public static ObservableCollection<ContactModel> GetContactByName(string _name)
         {
             ContactModel cm = null;
@@ -109,6 +109,19 @@ namespace wpf_demo_phonebook
             return cm;
         }
 
+
+        //(ok) -->Methode qui fait un delete d'un contact
+        public static int DeleteContact(ContactModel _cm)
+        {
+            int nbDel = 0; 
+            int _id = _cm.ContactID;
+
+            nbDel = dao.Delete(_cm, _id);
+
+            return nbDel;
+        }
+
+
         #endregion
 
 
@@ -119,16 +132,16 @@ namespace wpf_demo_phonebook
 
 
         //***********en essai ****************
-        //() -->Methode qui fait un delete d'un contact
-        public static int DeleteContact(ContactModel _cm)
+        //() -->Methode qui fait un Insert d'un contact
+        public static int AddContact(ContactModel _cm)
         {
-            int nbDel = 0; 
-            DataTable dt = new DataTable();
-            int _id = _cm.ContactID;
+            int nbAdd = 0;
+            
 
-           nbDel = dao.Delete(_cm, _id);
+            nbAdd = dao.Insert(_cm);
 
-            return nbDel;
+            return nbAdd;
         }
+
     }
 }

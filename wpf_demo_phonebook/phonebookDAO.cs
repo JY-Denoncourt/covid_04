@@ -100,13 +100,23 @@ namespace wpf_demo_phonebook
 
             return conn.ExecuteDeleteQuery(_query, parameters);
         }
-        
+
         #endregion
 
 
 
+        //****************en essai**************
+        //() -->Requete qui Insert un newContact dans la Table Contact
+        public int Insert(ContactModel cm)
+        {
+            // 
+            string _query =
+                $"Insert " +
+                $"Into [Contacts] (FirstName, LastName, Email, Phone, Mobile) " +
+                $"OUTPUT INSERTED.ContactID " +
+                $"Values ('{cm.FirstName}­', '{cm.LastName}', '{cm.Email}', '{cm.Phone}', '{cm.Mobile}')";
 
-
-
+            return conn.ExecuteInsertQuery(_query, null);
+        }
     }
 }
