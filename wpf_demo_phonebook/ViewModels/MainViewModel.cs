@@ -98,8 +98,9 @@ namespace wpf_demo_phonebook.ViewModels
             DeleteContactCommand = new RelayCommand(DeleteContact);   //Fait une supression du SelectedContact de FicheGauche
             AddContactCommand = new RelayCommand(AddContact);         //Fait un newContact de FicheGauche avec flag=true
 
-            SelectedContact = PhoneBookBusiness.GetContactByID(1);
+            //********************Au depart du prog
             ShowAllContact(null);
+            SelectedContact = Contacts.First<ContactModel>();
         }
 
         //-----------------------------------------------------------------------Methodes
@@ -123,17 +124,25 @@ namespace wpf_demo_phonebook.ViewModels
                 case "id":
                     Contacts.Clear();
                     SelectedContact = PhoneBookBusiness.GetContactByID(output);
-              
+
                     if (SelectedContact != null)
                         Contacts.Add(SelectedContact);
-                    
-                        
+                    else
+                        MessageBox.Show("Aucun Id trouver");
                     break;
+               
+                    //------------------------------------------------
+                
                 case "name":
                     Contacts = PhoneBookBusiness.GetContactByName(input);
                     if (Contacts.Count > 0)
                         SelectedContact = Contacts[0];
+                    else
+                        MessageBox.Show("Aucun Nom / Prenom trouver (Astuce: essayer lettre%");
                     break;
+
+                    //-----------------------------------------------
+
                 default:
                     MessageBox.Show("Unkonwn search method");
                     break;

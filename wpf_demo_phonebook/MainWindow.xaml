@@ -26,7 +26,7 @@
                     <MenuItem Header="_Sauvegarder"/>
                     <MenuItem Header="_Fermer"/>
                     <Separator/>
-                    <MenuItem Header="_Nouveau client"/>
+                    <MenuItem Header="_Nouveau contact" Command="{Binding AddContactCommand}"/>
                     <Separator/>
                     <MenuItem Header="_Quitter" Click="Exit_Click"/>
                 </MenuItem>
