@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
 
 namespace wpf_demo_phonebook
 {
@@ -86,7 +83,6 @@ namespace wpf_demo_phonebook
         public static int UpdateContact(ContactModel _cm)
         {
             int nbModif = 0;
-            DataTable dt = new DataTable();
             int _id = _cm.ContactID;
 
             nbModif = dao.Update(_cm, _id);
@@ -122,26 +118,16 @@ namespace wpf_demo_phonebook
         }
 
 
-        #endregion
-
-
-
-
-
-
-
-
-        //***********en essai ****************
-        //() -->Methode qui fait un Insert d'un contact
+        //(ok) -->Methode qui fait un Insert d'un contact
         public static int AddContact(ContactModel _cm)
         {
             int nbAdd = 0;
-            
-
             nbAdd = dao.Insert(_cm);
 
             return nbAdd;
         }
+
+        #endregion
 
     }
 }

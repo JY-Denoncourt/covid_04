@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Data;
 using System.Data.SqlClient;
-using System.Text;
 
 namespace wpf_demo_phonebook
 {
@@ -101,12 +98,8 @@ namespace wpf_demo_phonebook
             return conn.ExecuteDeleteQuery(_query, parameters);
         }
 
-        #endregion
 
-
-
-        //****************en essai**************
-        //() -->Requete qui Insert un newContact dans la Table Contact
+        //(ok) -->Requete qui Insert un newContact dans la Table Contact
         public int Insert(ContactModel cm)
         {
             // 
@@ -119,4 +112,6 @@ namespace wpf_demo_phonebook
             return conn.ExecuteInsertQuery(_query, null);
         }
     }
+    #endregion
+
 }

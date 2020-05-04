@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Reflection;
-using System.Text;
 
 namespace wpf_demo_phonebook
 {
@@ -176,17 +174,6 @@ namespace wpf_demo_phonebook
         }
        
         #endregion
-
-
-
-
-
-
-
-
-        // *******En essai JYD********
-        
-
 
     }
 }
